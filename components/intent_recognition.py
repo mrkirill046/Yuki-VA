@@ -1,11 +1,12 @@
 # Imports | kazuha046 creator
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.svm import LinearSVC
 
 # Variables
-vectorizer = CountVectorizer()
-classifier = LogisticRegression()
+vectorizer = TfidfVectorizer(analyzer='char', ngram_range=(2, 3))
 classifier_probability = LogisticRegression()
+classifier = LinearSVC()
 
 config = {
     'intents': {
@@ -14,13 +15,29 @@ config = {
         },
         'farewell': {
             'examples': ['пока', 'до свидания', 'увидимся', 'всего доброго', 'до встречи', 'прощай', 'всего хорошего']
+        },
+        'window_off': {
+            'examples': ['спрячься', 'закрой своё окно', 'выключись', 'спрятайся', 'уйди']
+        },
+        'window_on': {
+            'examples': ['покажись', 'открой своё окно', 'включись', 'появись']
+        },
+        'computer_off': {
+            'examples': ['выключи пк', 'выключи компьютер', 'выключи комп', 'выключи ноут']
+        },
+        'youtube': {
+            'examples': ['открой youtube', 'поиск на ютубе', 'поиск на youtube', 'найди на youtube', 'найди на ютуби',
+                         'найди в ютуби']
+        },
+        'google': {
+            'examples': ['найди в гугле', 'поищи в google', 'посик в гугл', 'найди в google']
         }
     }
 }
 
 
 # Methods
-def prepare_classifier():
+def prepare_corpus():
     corpus = []
     target_vector = []
     for intent_name, intent_data in config['intents'].items():
@@ -34,9 +51,6 @@ def prepare_classifier():
 
 
 def get_intent(request):
-    if not request:
-        return None
-
     best_intent = classifier.predict(vectorizer.transform([request]))[0]
 
     index_of_best_intent = list(classifier_probability.classes_).index(best_intent)
@@ -44,9 +58,5 @@ def get_intent(request):
 
     best_intent_probability = probabilities[index_of_best_intent]
 
-    if best_intent_probability > 0.57:
+    if best_intent_probability > 0.34:
         return best_intent
-    else:
-        return None
-
-prepare_classifier()

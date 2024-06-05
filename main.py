@@ -1,8 +1,8 @@
 # Imports | kazuha046 creator
 import os
 from components.voice_to_text import recognize_voice
-from components.intent_recognition import get_intent, prepare_classifier
-from components.assistant_image import show_assistant_window
+from components.intent_recognition import get_intent, prepare_corpus
+from components.assistant_window import show_assistant_window
 from tools.execute_command import execute_command_with_intent
 import threading
 
@@ -14,17 +14,30 @@ def main_loop():
         os.remove('user_audio.wav')
         print(f'\nUSER SENTENCE: {sentence}')
 
-        intent = get_intent(sentence)
+        voice_input_parts = sentence.split(' ')
 
-        if intent:
-            execute_command_with_intent(intent)
-        else:
-            print('ERROR: Command not found')
+        if len(voice_input_parts) == 1:
+            intent = get_intent(sentence)
+
+            if intent:
+                execute_command_with_intent(intent)
+            else:
+                print('ERROR: Command not found')
+
+        if len(voice_input_parts) > 1:
+            for guess in range(len(voice_input_parts)):
+                intent = get_intent((' '.join(voice_input_parts[0:guess])).strip())
+                if intent:
+                    command_options = [voice_input_parts[guess:len(voice_input_parts)]]
+                    execute_command_with_intent(intent, *command_options)
+                    break
+                if not intent and guess == len(voice_input_parts) - 1:
+                    print('ERROR: Command not found')
 
 
 # Run
 if __name__ == '__main__':
-    prepare_classifier()
+    prepare_corpus()
     assistant_thread = threading.Thread(target=show_assistant_window)
     assistant_thread.start()
 

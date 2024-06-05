@@ -3,7 +3,7 @@ import random
 
 from components.assistant_voice_play import play_voice_assistant
 
-# Variables
+# Variable
 partings = [
     'Пока',
     'До свидания',
@@ -88,5 +88,5 @@ partings = [
 
 
 # Method
-def play_partings(*args: None):
+def play_partings(*args):
     play_voice_assistant(random.choice(partings))

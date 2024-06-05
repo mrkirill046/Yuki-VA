@@ -3,7 +3,7 @@ import random
 
 from components.assistant_voice_play import play_voice_assistant
 
-# Variables
+# Variable
 greetings = [
     'Привет',
     'Здравствуй',
@@ -83,5 +83,5 @@ greetings = [
 
 
 # Method
-def play_greetings(*args: None):
+def play_greetings(*args):
     play_voice_assistant(random.choice(greetings))

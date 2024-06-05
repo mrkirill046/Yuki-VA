@@ -1,5 +1,7 @@
 # Imports | kazuha046 creator
 import tkinter as tk
+
+from components.assistant_voice_play import play_voice_assistant
 from PIL import Image, ImageTk
 
 # Variables
@@ -18,6 +20,17 @@ def on_drag_motion(event):
     x = root.winfo_pointerx() - drag_start_x
     y = root.winfo_pointery() - drag_start_y
     root.geometry(f'+{x}+{y}')
+
+
+def close_assistant_window():
+    play_voice_assistant('Хорошо, ухожу!')
+    root.withdraw()
+
+
+def reshow_assistant_window():
+    play_voice_assistant('Я снова тут!')
+    root.deiconify()
+    root.attributes('-topmost', True)
 
 
 def show_assistant_window():
