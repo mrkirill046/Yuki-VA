@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import font
 from PIL import ImageTk, Image
 from components.start import start_assistant
+from tools.manage_programm import resource_path
 
 # Variable
 root = tk.Tk()
@@ -25,13 +26,13 @@ def starting_assistant():
 
 def show_launcher():
     root.title('Yuki - Launcher')
-    root.iconbitmap('source/heart.ico')
+    root.iconbitmap(resource_path('source/heart.ico'))
     root.resizable(width=False, height=False)
 
     x = (screen_width - window_width) // 2
     y = (screen_height - window_height) // 2
 
-    img = Image.open('source/assistant.png')
+    img = Image.open(resource_path('source/assistant.png'))
     img = img.resize((250, 350))
     img = ImageTk.PhotoImage(img)
 
