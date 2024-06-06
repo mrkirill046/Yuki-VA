@@ -33,6 +33,10 @@ def reshow_assistant_window():
     root.attributes('-topmost', True)
 
 
+def destroy_assistant_window():
+    root.destroy()
+
+
 def show_assistant_window():
     global root
 
@@ -41,7 +45,7 @@ def show_assistant_window():
     root.overrideredirect(True)
     root.attributes('-topmost', True)
 
-    img = Image.open('assistant.png')
+    img = Image.open('source/assistant.png')
     photo = ImageTk.PhotoImage(img)
 
     label = tk.Label(root, image=photo, bg='white')

@@ -14,7 +14,7 @@ config = {
             'examples': ['привет', 'здравствуй', 'здравствуйте', 'алло', 'добрый день', 'добрый вечер', 'доброе утро']
         },
         'farewell': {
-            'examples': ['пока', 'до свидания', 'увидимся', 'всего доброго', 'до встречи', 'прощай', 'всего хорошего']
+            'examples': ['пока', 'до свидания', 'увидимся', 'всего доброго', 'до встречи', 'прощай', 'до скорого']
         },
         'window_off': {
             'examples': ['спрячься', 'закрой своё окно', 'выключись', 'спрятайся', 'уйди']
@@ -26,8 +26,7 @@ config = {
             'examples': ['выключи пк', 'выключи компьютер', 'выключи комп', 'выключи ноут']
         },
         'youtube': {
-            'examples': ['открой youtube', 'поиск на ютубе', 'поиск на youtube', 'найди на youtube', 'найди на ютуби',
-                         'найди в ютуби']
+            'examples': ['открой youtube', 'поиск на ютубе', 'поиск на youtube', 'найди на youtube', 'найди на ютуби']
         },
         'google': {
             'examples': ['найди в гугле', 'поищи в google', 'посик в гугл', 'найди в google']
@@ -58,5 +57,5 @@ def get_intent(request):
 
     best_intent_probability = probabilities[index_of_best_intent]
 
-    if best_intent_probability > 0.34:
+    if best_intent_probability > 0.22:
         return best_intent
